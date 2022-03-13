@@ -14,12 +14,6 @@
 - types
   - selfsynergy: 0
 
-## /
-
-- time: 0
-- skill: 0
-- types
-
 ## 99 Rupees/99ルピー
 
 - time: 0.5

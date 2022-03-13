@@ -28,7 +28,6 @@ class BingoTask:
 
 
 def analyze(data: dict, filename: str, title: str):
-    keys = set()
     with open(filename, mode="w", encoding="utf_8") as f:
         def write(s):
             print(s, file=f)
@@ -38,8 +37,8 @@ def analyze(data: dict, filename: str, title: str):
             if len(elems) == 0:
                 continue
             for raw in elems:
-                for key in raw:
-                    keys.add(key)
+                if raw["id"] == "":
+                    continue
                 write(f"\n## {raw['name']}/{raw['jp']}\n")
                 write(f"- time: {raw['time']}")
                 write(f"- skill: {raw['skill']}")
