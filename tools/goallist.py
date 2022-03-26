@@ -25,13 +25,13 @@ class BingoTask:
         time: float,
         weight: float,
     ) -> None:
-        self.difficulty = difficulty
-        self.id = id
-        self.jp = jp
-        self.name = name
-        self.skill = skill
-        self.time = time
-        self.weight = weight
+        self.difficulty = int(difficulty)
+        self.id = str(id)
+        self.jp = str(jp)
+        self.name = str(name)
+        self.skill = float(skill)
+        self.time = float(time)
+        self.weight = float(weight)
         self.types = dict()
         self.rowtypes = dict()
         self.subtypes = dict()
@@ -40,7 +40,7 @@ class BingoTask:
 class BingoList:
     tasks: List[List[BingoTask]]
     rowtypes: Dict[str, float]
-    synfilters: Dict[str, Tuple[str, float]]
+    synfilters: Dict[str, Tuple[str, int]]
     average_standard_deviation: Optional[float]
 
     def __init__(self, average_standard_deviation: Optional[float] = None) -> None:
@@ -66,7 +66,7 @@ def parse(filename: str):
         for key, item in raw["synfilters"].items():
             item = cast(str, item)
             pair = item.split(" ")
-            ret[mode].synfilters[key] = pair[0], float(pair[1])
+            ret[mode].synfilters[key] = pair[0], int(pair[1])
         for i in range(25):
             for elem in raw[str(i + 1)]:
                 task = BingoTask(
@@ -85,7 +85,7 @@ def parse(filename: str):
                         task.subtypes[k] = t
                 if "rowtypes" in elem:
                     for k, t in elem["rowtypes"].items():
-                        task.subtypes[k] = t
+                        task.rowtypes[k] = t
                 ret[mode].tasks[i].append(task)
     return ret
 

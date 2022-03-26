@@ -1,3 +1,4 @@
+import sys
 from typing import List, Union
 
 
@@ -22,7 +23,7 @@ class q:
         self.S = [v for v in range(WIDTH)]
         if c == 0:
             b = [c]
-            c + 1
+            c += 1
         for d in range(WIDTH):
             e = self.S[d]
             h = (h + e + b[d % c]) % WIDTH
@@ -59,16 +60,16 @@ class Random:
         b = self.l(b, f)
         self.a = q(f)
 
-    def random(self):
-        c = self.a.g(CHUNKS)
+    def random(self) -> float:
+        c = float(self.a.g(CHUNKS))
         d = STARTDENOM
         b = 0
-        if c < SIGNIFICANCE:
+        while c < SIGNIFICANCE:
             c = (c + b) * WIDTH
             d *= WIDTH
             b = self.a.g(1)
         while c >= OVERFLOW:
-            c //= 2
+            c /= 2
             d //= 2
             b >>= 1
         return (c + b) / d
@@ -87,12 +88,13 @@ class Random:
 
 
 def main():
-    rand = Random(1)
+    rand = Random("1")
     print(rand.random())
     print(rand.random())
     print(rand.random())
     print(rand.random())
     print(rand.random())
+    print(STARTDENOM)
 
 
 if __name__ == "__main__":
